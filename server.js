@@ -4,6 +4,9 @@ const MongoClient = require('mongodb').MongoClient
 const bodyParser= require('body-parser');
 const app = express()
 
+var path    = require("path");
+var port = process.env.PORT || 8080;
+
 app.set('view engine', 'ejs')
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -34,9 +37,6 @@ app.get('/', (req, res) => {
   MongoClient.connect('mongodb://sameer:sameer@ds163656.mlab.com:63656/crud-node', (err, database) => {
     if (err) return console.log(err)
     db = database
-    app.listen(3000, () => {
-      console.log('listening on 3000')
-    })
   })
 
 
@@ -52,3 +52,7 @@ app.get('/', (req, res) => {
       res.send({message: 'A darth vadar quote got deleted'})
     })
   })
+
+app.listen(port, function() {
+    console.log('Our app is running on http://localhost:' + port);
+});
